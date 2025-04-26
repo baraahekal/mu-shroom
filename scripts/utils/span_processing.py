@@ -2,6 +2,22 @@ import re
 import json
 import logging
 
+import re
+
+def parse_yes_no_probability(raw_response: str) -> float:
+    """
+    Parses probability from LLM adjudicator output.
+    Expects a float between 0.0 and 1.0 in the response.
+    """
+    try:
+        prob_match = re.search(r"([0-1](?:\.\d+)?)", raw_response)
+        if prob_match:
+            return float(prob_match.group(1))
+    except Exception as e:
+        logging.error(f"Failed to parse probability: {e}")
+    return 0.5  # Default if mismatch
+
+
 def parse_labels_from_response(raw_content: str):
     """Parse response with enhanced JSON extraction and validation."""
     try:
