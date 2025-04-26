@@ -1,126 +1,79 @@
 # MSA at SemEval-2025 Task 3: Multilingual Hallucination Detection
 
-🚀 Official implementation of our SemEval-2025 Task 3 system, designed for detecting hallucinations in multilingual LLM outputs through prompt-engineered weak labeling and ensemble verification.
+Official implementation of our system for SemEval-2025 Task 3 (Mu-SHROOM), tackling hallucination span detection in multilingual LLM outputs.
+
+🏆 Ranked 1st in Arabic and Basque, Top 3 in several other languages.
+
+---
 
 ## Overview
 
-This repository implements our hallucination detection system, which combines:
-- **Prompt-based weak label generation** for hallucinated spans.
-- **LLM ensemble verification** to validate extracted spans.
-- **Post-processing** using fuzzy matching to refine span alignment.
+This repository implements a three-stage hallucination detection framework:
+- **Span Extraction**: A primary LLM identifies candidate hallucinated spans.
+- **Ensemble Adjudication**: Three independent LLMs assign hallucination probabilities per span.
+- **Consensus Labeling**: Probabilities are aggregated and thresholded to finalize hallucination labels.
 
-Our system ranked **1st** in Arabic and Basque, and **Top 3** in several other languages at SemEval-2025 Task 3.
-
----
-
-## 📦 Repository Structure
-
-```
-scripts/
-│
-├── main_label_generator.py    # Main runner script
-│
-└── utils/
-    ├── api_clients.py         # Handles API requests to LLMs
-    ├── prompts.py              # Builds task-specific prompts
-    ├── span_processing.py      # Parsing and span alignment utilities
-    └── constants.py            # API keys management, enums, mappings
-```
+The full process simulates human adjudication and reduces model bias through rotation of extractor and adjudicator roles across four LLMs.
 
 ---
 
-## 🚀 Setup Instructions
+## Setup
 
-### 1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/baraahekal/mu-shroom.git
+   cd mu-shroom
+   ```
 
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Set your API keys:
+   ```bash
+   export DEEPSEEK_API_KEY="your-key"
+   export GEMINI_API_KEY="your-key"
+   export QWEN_API_KEY="your-key"
+   export OPENAI_API_KEY="your-key"
+   ```
+
+---
+
+## Usage
+
+Run hallucination detection with ensemble verification:
 ```bash
-git clone https://github.com/YourUsername/YourRepoName.git
-cd YourRepoName
+python scripts/main_label_generator.py --lang english
 ```
 
-### 2. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Dependencies include:
-- `openai`
-- `google-generativeai`
-- `tqdm`
-- `python-dotenv`
+- Supported languages: english, arabic, french, german, etc.
+- Predictions are saved under the `predictions/` folder, one file per extractor model.
 
 ---
 
-### 3. Set your API Keys
+## Citation
 
-Create a `.env` file in the root directory (or export manually) with the following content:
-
-```bash
-export DEEPSEEK_API_KEY="your-deepseek-key"
-export GEMINI_API_KEY="your-gemini-key"
-export QWEN_API_KEY="your-qwen-key"
-export OPENAI_API_KEY="your-openai-key"
-```
-
-Or manually export them before running.
-
----
-
-## 📋 Usage
-
-### 1. Label data using a selected LLM
-
-```bash
-python scripts/main_label_generator.py --lang english --provider openai
-```
-
-| Argument | Description |
-|:---------|:------------|
-| `--lang` | Language to process (e.g., english, arabic, french, etc.) |
-| `--provider` | API provider to use (`openai`, `gemini`, `deepseek`, `qwen`) |
-
-The input data should be placed in:
-```
-unlabeled-test/mushroom.<lang-code>-tst.v1.jsonl
-```
-and the predictions will be saved into:
-```
-predictions/mushroom-<lang-code>-tst-predicted.jsonl
-```
-
----
-
-## 📚 Citation
-
-If you use this system, please cite:
+If you use this work, please cite:
 
 ```bibtex
 @misc{hikal2025msa,
   author = {Baraa Hikal and Ahmed Nasreldin and Ali Hamdi},
   title = {MSA at SemEval-2025 Task 3: Hallucination Detection System},
   year = {2025},
-  howpublished = {\url{https://github.com/YourUsername/YourRepoName}},
+  howpublished = {\url{https://github.com/baraahekal/mu-shroom}},
   note = {Accessed: 2025-04-26}
 }
 ```
 
 ---
 
-## 📜 License
+## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🤝 Acknowledgements
-
-Special thanks to the organizers of [SemEval-2025 Task 3 (Mu-SHROOM)](https://helsinki-nlp.github.io/shroom/).
+This project is released under the MIT License.
 
 ---
-
-# ✅ Done
 
 ```
-Easy to install, easy to run, and fully reproducible 🚀
+Reproducible. Robust. Multilingual. 🚀
 
