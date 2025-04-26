@@ -66,14 +66,3 @@ If you use this work, please cite:
 }
 ```
 
----
-
-## License
-
-This project is released under the MIT License.
-
----
-
-```
-Reproducible. Robust. Multilingual. 🚀
-
