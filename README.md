@@ -47,7 +47,7 @@ Run hallucination detection with ensemble verification:
 python scripts/main_label_generator.py --lang english
 ```
 
-- Supported languages: english, arabic, french, german, etc.
+- Supported languages: english, arabic, french, german, and all other 14 langs.
 - Predictions are saved under the `predictions/` folder, one file per extractor model.
 
 ---
@@ -59,7 +59,7 @@ If you use this work, please cite:
 ```bibtex
 @misc{hikal2025msa,
   author = {Baraa Hikal and Ahmed Nasreldin and Ali Hamdi},
-  title = {MSA at SemEval-2025 Task 3: Hallucination Detection System},
+  title = {MSA at SemEval-2025 Task 3: High Quality Weak Labeling and LLM Ensemble Verification for Multilingual Hallucination Detection},
   year = {2025},
   howpublished = {\url{https://github.com/baraahekal/mu-shroom}},
   note = {Accessed: 2025-04-26}
